@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "node_modules": true,
+    "__mocks__": true,
+    "public": true,
+    "src/@types": true,
+    "jest-preprocess.ts": true,
+    "LICENSE": true
+  }
+}

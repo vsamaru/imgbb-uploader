@@ -27,6 +27,9 @@
     "update": "ncu -u"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.13",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.52",
     "babel-preset-react-app": "^9.1.2",
     "framer-motion": "^1.9.1",
     "gatsby": "^2.19.32",
@@ -41,11 +44,15 @@
     "gatsby-plugin-webpack-size": "^1.0.0",
     "gatsby-source-filesystem": "^2.1.50",
     "gatsby-transformer-sharp": "^2.3.17",
+    "immer": "^6.0.9",
     "modern-css-reset": "^1.1.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-dropzone": "^11.0.1",
     "react-helmet": "^5.2.1",
     "styled-components": "^5.0.1",
+    "timeago.js": "^4.0.2",
+    "use-immer": "^0.4.0",
     "use-media": "^1.4.0"
   },
   "devDependencies": {
@@ -91,6 +98,7 @@
     "tslint": "^6.0.0",
     "tslint-immutable": "^6.0.1",
     "tslint-react": "^4.2.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "whatwg-fetch": "^3.0.0"
   }
 }
