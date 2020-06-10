@@ -5,7 +5,6 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-//import {HelloWorld} from '../components/HelloWorld';
 // prettier-ignore
 import {
   Box, Boxfc, Boxf, BoxPaper, Hidden,  Content,BoxProps,Chip,
@@ -17,10 +16,10 @@ import {
 import { defaultAppData, AppData, UploadedImage } from "../data";
 import { DragAndDropImage } from "../components/DragAndDropImage";
 import { UploadedImageList } from "../components/UploadedImageList";
-import { print, makeid,useStateObj } from "../utils";
+import { print, makeid, useStateObj } from "../utils";
 import "../styles.css";
 import api from "../api/index";
-import {GITHUB_LINK} from '../../appConfig';
+import { GITHUB_LINK } from "../../appConfig";
 import { MuiThemeProvider } from "../MuiThemeProvider";
 
 const DataContext = React.createContext<
@@ -37,7 +36,15 @@ const ApiKeyField = ({ ...bprops }: {} & BoxProps) => {
       <H4 mr={2}>
         {" "}
         your{" "}
-        <a style={{ textDecoration: "underline", fontStyle: "italic", color:'inherit' }} href="https://api.imgbb.com/"  target="_blank" >
+        <a
+          style={{
+            textDecoration: "underline",
+            fontStyle: "italic",
+            color: "inherit",
+          }}
+          href="https://api.imgbb.com/"
+          target="_blank"
+        >
           API key
         </a>
         :
@@ -55,13 +62,12 @@ const ApiKeyField = ({ ...bprops }: {} & BoxProps) => {
   );
 };
 
-
-function getInitialAppData():AppData{
-  const st = localStorage.getItem('appData');
-  if (st){
-    let x:AppData = JSON.parse(st)
-    for (let e of x.uploadedImages){
-      e.date =  new Date(e.date as unknown as string);
+function getInitialAppData(): AppData {
+  const st = localStorage.getItem("appData");
+  if (st) {
+    let x: AppData = JSON.parse(st);
+    for (let e of x.uploadedImages) {
+      e.date = new Date((e.date as unknown) as string);
     }
     return x;
   }
@@ -71,95 +77,116 @@ function getInitialAppData():AppData{
 const App = () => {
   const [data, updateData, dataRef] = useStateObj(getInitialAppData());
 
-  useEffect(()=>{
+  useEffect(() => {
     setTimeout(() => {
-      localStorage.setItem('appData', JSON.stringify(data))
+      localStorage.setItem("appData", JSON.stringify(data));
     }, 100);
-  }, [data])
-
-  const uploadImage = useCallback(async (imagePrm:Promise<string>,name:string) => {
-    let key = makeid();
-    const apiKey = dataRef.current.apiKey;
-    updateData({
-      uploadedImages:[{
-        status: "loading",
-        key: key,
-        name: name,
-        date: new Date(),
-        imgbbLink: null,
-      }, ...dataRef.current.uploadedImages]
-    })
-    let res;
-    try {
-      res = await api.imgbb.upload(apiKey, await imagePrm, name);
-    } catch (e) {
-      updateData({
-        uploadedImages:
-          dataRef.current.uploadedImages.map(e => e.key == key ? {...e} : e) //add error
-      });
-      return ;
-    }
-    updateData({
-      uploadedImages:
-        dataRef.current.uploadedImages.map(e => e.key == key ? {
-          ...e,
-          status:"uploaded",
-          imgbbLink:res.url
-        } : e)
-    });
-    print("res",res);
   }, [data]);
 
-  print("current state", data)
+  const uploadImage = useCallback(
+    async (imagePrm: Promise<string>, name: string) => {
+      let key = makeid();
+      const apiKey = dataRef.current.apiKey;
+      updateData({
+        uploadedImages: [
+          {
+            status: "loading",
+            key: key,
+            name: name,
+            date: new Date(),
+            imgbbLink: null,
+          },
+          ...dataRef.current.uploadedImages,
+        ],
+      });
+      let res;
+      try {
+        res = await api.imgbb.upload(apiKey, await imagePrm, name);
+      } catch (e) {
+        updateData({
+          uploadedImages: dataRef.current.uploadedImages.map(e =>
+            e.key == key ? { ...e } : e
+          ), //add error
+        });
+        return;
+      }
+      updateData({
+        uploadedImages: dataRef.current.uploadedImages.map(e =>
+          e.key == key
+            ? {
+                ...e,
+                status: "uploaded",
+                imgbbLink: res.url,
+              }
+            : e
+        ),
+      });
+      print("res", res);
+    },
+    [data]
+  );
+
+  print("current state", data);
   return (
     <MuiThemeProvider>
-
-
-    <DataContext.Provider
-      value={{
-        ...data,
-        updateApiKey: apiKey => {
-          console.log("here", apiKey);
-          updateData({apiKey})
-        },
-      }}
-    >
-        <BoxCont px={2}>
-          <Boxfc>
+      <DataContext.Provider
+        value={{
+          ...data,
+          updateApiKey: apiKey => {
+            console.log("here", apiKey);
+            updateData({ apiKey });
+          },
+        }}
+      >
+        <BoxCont px={2} height="100%">
+          <Boxfc justify="space-between" height="100%">
             <Boxfc>
-              <a href="/" style={{textDecoration:'none', color:'inherit'}}><Boxf align="center">
-                 <img src="/logo.png" height="35px"/><H3 fontStyle="italic">Uploader</H3>
-              </Boxf></a>
-              <Boxf justify="space-between">
-                <Boxfc>
-
-                <H1 mb={1}>
-                  paste an image and get
-                </H1>
-                <H1>
-                a Imgbb Url Link
-                </H1>
-                </Boxfc>
-                <img src="/presentationImage.png" />
-              </Boxf>
+              <Boxfc>
+                <a
+                  href="/"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Boxf align="center">
+                    <img src="/logo.png" height="35px" />
+                    <H3 fontStyle="italic">Uploader</H3>
+                  </Boxf>
+                </a>
+                <Boxf justify="space-between">
+                  <Boxfc>
+                    <H1 mb={1}>paste an image and get</H1>
+                    <H1>a Imgbb Url Link</H1>
+                  </Boxfc>
+                  <img src="/presentationImage.png" />
+                </Boxf>
+              </Boxfc>
+              <ApiKeyField mb={1} />
+              <DragAndDropImage onReceiveImage={uploadImage} />
+              <UploadedImageList
+                mt={2}
+                items={data.uploadedImages}
+                onRemoveAll={() => updateData({ uploadedImages: [] })}
+                onRemoveItem={itemToRemove =>
+                  updateData({
+                    uploadedImages: dataRef.current.uploadedImages.filter(
+                      e => e.key != itemToRemove.key
+                    ),
+                  })
+                }
+              />
             </Boxfc>
-            <ApiKeyField mb={1}/>
-            <DragAndDropImage onReceiveImage={uploadImage} />
-            <UploadedImageList mt={2}
-              items={data.uploadedImages}
-              onRemoveAll={()=>updateData({uploadedImages:[]})}
-              onRemoveItem={(itemToRemove) => updateData({
-                uploadedImages:dataRef.current.uploadedImages.filter(e => e.key != itemToRemove.key)
-              })}
-                
-            />
-
             <Boxf p={2}>
-              <Txt mr={3}>2020 © anisg</Txt> <a href={GITHUB_LINK} style={{ color:'inherit',fontStyle:'italic'}} target="_blank"><Txt>View code on Github</Txt></a>
+              <Txt mr={3}>2020 © anisg</Txt>{" "}
+              <a
+                href={GITHUB_LINK}
+                style={{ color: "inherit", fontStyle: "italic" }}
+                target="_blank"
+              >
+                <Txt>View code on Github</Txt>
+              </a>
             </Boxf>
           </Boxfc>
         </BoxCont>
-    </DataContext.Provider>
+      </DataContext.Provider>
     </MuiThemeProvider>
   );
 };

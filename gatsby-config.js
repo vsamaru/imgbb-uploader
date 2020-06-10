@@ -1,8 +1,8 @@
-const siteTitle = "gatsby-starter-typescript-deluxe";
+const siteTitle = "imgbb-uploader";
 const siteDescription =
-  "A Gatsby starter with TypeScript, Storybook, Styled Components, Framer Motion, Jest, and more.";
-const siteAuthor = "@gojutin";
-const siteUrl = "https://gatsby-starter-typescript-deluxe.netlify.com";
+  "Upload images to imgbb";
+const siteAuthor = "@anisg";
+const siteUrl = "https://github.com";
 const siteImage = `${siteUrl}/icons/icon_512x512.png`;
 const siteKeywords = ["gatsby", "typescript", "starter", "javascript", "react"];
 
@@ -19,7 +19,7 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/images`,
+        path: `${__dirname}/static`,
         name: "images",
       },
     },
