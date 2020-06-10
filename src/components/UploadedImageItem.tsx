@@ -33,7 +33,7 @@ export const UploadedImageItem = ({
               !item.imgbbLink
                 ? {}
                 : {
-                    backgroundImage: `url(${item.imgbbLink})`,
+                    backgroundImage: `url(${item.imgbbThumbLink})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
