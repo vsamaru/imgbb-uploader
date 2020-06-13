@@ -1,6 +1,6 @@
 # imgbb-uploader
 
-[**DEMO**](https://github.com/anisg/imgbb-uploader)
+[**View App**](https://anisg.github.io/imgbb-uploader)
 ![demo](./demo.png)
 
 ## Usage
