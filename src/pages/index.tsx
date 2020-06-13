@@ -83,7 +83,7 @@ function getInitialAppData(): AppData {
 }
 
 const App = () => {
-  const [data, updateData, dataRef] = useStateObj(getInitialAppData());
+  const [data, updateData, dataRef] = useStateObj<AppData>(getInitialAppData());
 
   const gqdata = useStaticQuery(graphql`
   {
@@ -165,14 +165,12 @@ const App = () => {
     [data]
   );
 
-  print("current state", data);
   return (
     <MuiThemeProvider>
       <DataContext.Provider
         value={{
           ...data,
           updateApiKey: apiKey => {
-            console.log("here", apiKey);
             updateData({ apiKey });
           },
         }}
@@ -200,7 +198,7 @@ const App = () => {
                 </Boxf>
               </Boxfc>
               <ApiKeyField mb={1} />
-              <DragAndDropImage onReceiveImage={uploadImage} disabled={data.apiKey.length == 0} />
+              <DragAndDropImage onReceiveImage={uploadImage} disabled={false/*data.apiKey.length == 0*/} />
               <UploadedImageList
                 mt={2}
                 items={data.uploadedImages}
