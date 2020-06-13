@@ -3,13 +3,6 @@
   "description": "A Gatsby starter with TypeScript, Storybook, Styled Components, Jest, and more.",
   "version": "0.0.3",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gojutin/gatsby-starter-typescript-deluxe"
-  },
-  "bugs": {
-    "url": "https://github.com/gojutin/gatsby-starter-typescript-deluxe/issues"
-  },
   "scripts": {
     "develop": "gatsby develop",
     "dev": "npm run develop",

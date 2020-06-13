@@ -3,8 +3,6 @@ const siteDescription =
   "Upload images to imgbb";
 const siteAuthor = "@anisg";
 const siteUrl = "https://anisg.github.io/imgbb-uploader/";
-const siteImage = `${siteUrl}/icons/icon_512x512.png`;
-const siteKeywords = ["gatsby", "typescript", "starter", "javascript", "react"];
 
 module.exports = {
   siteMetadata: {
@@ -12,11 +10,8 @@ module.exports = {
     description: siteDescription,
     author: siteAuthor,
     url: siteUrl,
-    keywords: siteKeywords,
-    image: siteImage,
   },
   pathPrefix: `/imgbb-uploader`,
-  assetPrefix: `/imgbb-uploader`,
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,

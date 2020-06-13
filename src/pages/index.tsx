@@ -23,6 +23,7 @@ import "../styles.css";
 import api from "../api/index";
 import { GITHUB_LINK,PUBLIC_URL } from "../../appConfig";
 import { MuiThemeProvider } from "../MuiThemeProvider";
+import {SEO} from '../components/seo';
 
 const DataContext = React.createContext<
   AppData & {
@@ -54,7 +55,7 @@ const ApiKeyField = ({ ...bprops }: {} & BoxProps) => {
 
       <TextField
         defaultValue={apiKey}
-        placeholder="choose..."
+        placeholder="add api key..."
         variant="outlined"
         onBlur={ev => {
           updateApiKey(ev.target.value);
@@ -176,6 +177,7 @@ const App = () => {
           },
         }}
       >
+        <SEO />
         <BoxCont px={2} height="100%">
           <Boxfc justify="space-between" height="100%">
             <Boxfc>

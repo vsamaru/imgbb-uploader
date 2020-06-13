@@ -12,9 +12,7 @@ type SEOProps = {
   description?: string;
   url?: string;
   author?: string;
-  keywords?: string[];
   meta?: MetaItem[];
-  image?: string;
 };
 
 const SEO: React.FC<SEOProps> = props => {
@@ -26,8 +24,6 @@ const SEO: React.FC<SEOProps> = props => {
           description
           author
           url
-          keywords
-          image
         }
       }
     }
@@ -48,8 +44,6 @@ const SEO: React.FC<SEOProps> = props => {
   const siteDescription = props.description || description;
   const siteUrl = props.url || url;
   const siteAuthor = props.author || author;
-  const siteImage = props.image || image;
-  const siteKeywords = [...keywords, props.keywords].join(",");
   const metaData = [
     {
       name: "canonical",
@@ -58,10 +52,6 @@ const SEO: React.FC<SEOProps> = props => {
     {
       name: "description",
       content: siteDescription,
-    },
-    {
-      name: "image",
-      content: siteImage,
     },
     {
       name: "og:url",
@@ -80,10 +70,6 @@ const SEO: React.FC<SEOProps> = props => {
       content: siteDescription,
     },
     {
-      name: "og:image",
-      content: siteImage,
-    },
-    {
       name: "twitter:card",
       content: "summary_large_image",
     },
@@ -98,14 +84,6 @@ const SEO: React.FC<SEOProps> = props => {
     {
       name: "twitter:description",
       content: siteDescription,
-    },
-    {
-      name: "twitter:image",
-      content: siteImage,
-    },
-    {
-      name: "keywords",
-      content: siteKeywords,
     },
   ].concat(meta);
 
