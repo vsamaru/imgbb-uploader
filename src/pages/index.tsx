@@ -64,6 +64,11 @@ const ApiKeyField = ({ ...bprops }: {} & BoxProps) => {
   );
 };
 
+const localStorage = typeof window == `undefined` ? {
+  getItem(str){return null;},
+  setItem(str,v){return ;}
+} : window.localStorage;
+
 function getInitialAppData(): AppData {
   const st = localStorage.getItem("appData");
   if (st) {
