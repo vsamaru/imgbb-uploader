@@ -33,7 +33,7 @@ export const UploadedImageItem = ({
               !item.imgbbLink
                 ? {}
                 : {
-                    backgroundImage: `url(${item.imgbbThumbLink})`,
+                    backgroundImage: `url(${item.imgbbThumbLink ? item.imgbbThumbLink : item.imgbbLink})`,
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
@@ -68,7 +68,6 @@ export const UploadedImageItem = ({
                       variant="contained"
                       color="primary"
                       size="large"
-                      autoHideDuration={1000}
                       startIcon={<FileCopyIcon />}
                       onClick={() => {
                         navigator.clipboard.writeText(item.imgbbLink as string);

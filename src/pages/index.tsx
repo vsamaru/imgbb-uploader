@@ -19,7 +19,7 @@ import { UploadedImageList } from "../components/UploadedImageList";
 import { print, makeid, useStateObj } from "../utils";
 import "../styles.css";
 import api from "../api/index";
-import { GITHUB_LINK } from "../../appConfig";
+import { GITHUB_LINK,PUBLIC_URL } from "../../appConfig";
 import { MuiThemeProvider } from "../MuiThemeProvider";
 
 const DataContext = React.createContext<
@@ -149,20 +149,20 @@ const App = () => {
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <Boxf align="center">
-                    <img src="/logo.png" height="35px" />
+                    <img src={`${PUBLIC_URL}/logo.png`} height="35px" />
                     <H3 fontStyle="italic">Uploader</H3>
                   </Boxf>
                 </a>
                 <Boxf justify="space-between">
                   <Boxfc>
                     <H1 mb={1}>paste an image and get</H1>
-                    <H1>a Imgbb Url Link</H1>
+                    <H1>an Imgbb Url Link</H1>
                   </Boxfc>
-                  <img src="/presentationImage.png" />
+                  <img src={`${PUBLIC_URL}/presentation.png`} />
                 </Boxf>
               </Boxfc>
               <ApiKeyField mb={1} />
-              <DragAndDropImage onReceiveImage={uploadImage} />
+              <DragAndDropImage onReceiveImage={uploadImage} disabled={data.apiKey.length == 0} />
               <UploadedImageList
                 mt={2}
                 items={data.uploadedImages}
@@ -183,7 +183,7 @@ const App = () => {
                 style={{ color: "inherit", fontStyle: "italic" }}
                 target="_blank"
               >
-                <Txt>View code on Github</Txt>
+                <span>View code on Github</span>
               </a>
             </Boxf>
           </Boxfc>

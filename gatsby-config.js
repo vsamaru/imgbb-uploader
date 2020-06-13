@@ -2,7 +2,7 @@ const siteTitle = "imgbb-uploader";
 const siteDescription =
   "Upload images to imgbb";
 const siteAuthor = "@anisg";
-const siteUrl = "https://github.com";
+const siteUrl = "https://anisg.github.io/imgbb-uploader/";
 const siteImage = `${siteUrl}/icons/icon_512x512.png`;
 const siteKeywords = ["gatsby", "typescript", "starter", "javascript", "react"];
 
@@ -15,15 +15,19 @@ module.exports = {
     keywords: siteKeywords,
     image: siteImage,
   },
+  pathPrefix: `/imgbb-uploader`,
+  assetPrefix: `/imgbb-uploader`,
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/static`,
+        path: `${__dirname}/src/images`,
         name: "images",
       },
     },
-    {
+    
+    `gatsby-plugin-material-ui`,
+    /*{
       resolve: "gatsby-plugin-react-axe",
       options: {
         showInProduction: false,
@@ -33,8 +37,8 @@ module.exports = {
           // Your axe-core options.
         },
       },
-    },
-    `gatsby-plugin-styled-components`,
+    },*/
+    //`gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     "gatsby-plugin-react-helmet",
@@ -65,6 +69,6 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-offline`,
+    //`gatsby-plugin-offline`,
   ],
 };

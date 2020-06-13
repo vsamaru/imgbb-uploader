@@ -8,6 +8,7 @@ import {
   Button,Touchable, Switch, Divider,Avatar,
 } from "../MaterialUI";
 import { print } from "../utils";
+const ImageIcon = require('@material-ui/icons/Image').default;
 
 let i = 0;
 function getImageB64(image: File):Promise<string> {
@@ -26,8 +27,10 @@ function getImageB64(image: File):Promise<string> {
 
 export const DragAndDropImage = ({
   onReceiveImage,
+  disabled = false,
 }: {
   onReceiveImage: (b64image: Promise<string>, name:string) => void;
+  disabled?:boolean
 }) => {
   useEffect(() => {
     document.onpaste = async function(event) {
@@ -51,7 +54,7 @@ export const DragAndDropImage = ({
     console.log("files", acceptedFiles);
     // Do something with the files
     for (let file of acceptedFiles){
-      onReceiveImage(await getImageB64(file), file.name);
+      onReceiveImage(getImageB64(file), file.name);
     }
   }, []);
 
@@ -64,6 +67,9 @@ export const DragAndDropImage = ({
     {...getRootProps({
       onClick: event => event.stopPropagation(),
     })}
+    style={disabled ? {opacity:0.3,
+      pointerEvents: 'none'
+    } : {}}
     >
     <Boxfc
       align="center"
@@ -75,21 +81,16 @@ export const DragAndDropImage = ({
       borderRadius="20px"
       
     >
-      <Box bgcolor="#C4C4C4" width="192px" height="122px"></Box>
-      <H1>Drag & Drop or Copy and Paste</H1>
+        <ImageIcon size="large" style={{ fontSize: '6em'}} color="primary"/>
+      <H1>Drag & Drop</H1>
       <Txt>
         your image here, or{" "}
-        <div
+        <span
                   {...getRootProps()}
-        >
-        <Txt
-          fontStyle="italic"
-          style={{ textDecoration: "underline" }}
-        >
+            style={{ textDecoration: "underline",fontStyle:'italic'}}>
           browse
           <input {...getInputProps()} />
-        </Txt>
-        </div>
+        </span>
       </Txt>
     </Boxfc>
     </div>

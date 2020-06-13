@@ -2,32 +2,16 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action as action2 } from "@storybook/addon-actions";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
-import { Button } from "../components/button";
 import { MuiThemeProvider } from "../MuiThemeProvider";
 import { DragAndDropImage } from "../components/DragAndDropImage";
 import { UploadedImageItem } from "../components/UploadedImageItem";
 import { UploadedImageList } from "../components/UploadedImageList";
-
+import {UploadedImage} from '../data'
 const action = (str: string) => (...args) => console.log(`action("${str}") `, args);
 
 const MuiThemeDecorator = storyFn => (
   <MuiThemeProvider>{storyFn()}</MuiThemeProvider>
 );
-/*
-const DEFAULT_STYLE = "background: #cce6ff;\ncolor: #333;";
-
-storiesOf("Button", module)
-  .addDecorator(withKnobs)
-  .add("with text", () => (
-    <Button
-      onClick={action("clicked")}
-      disabled={boolean("Disabled", false)}
-      css={text("CSS", DEFAULT_STYLE)}
-    >
-      {text("Label", "Hello Storybook")}
-    </Button>
-  ));
-*/
 
 storiesOf("components|DragAndDropImage", module)
   .addDecorator(MuiThemeDecorator)
@@ -37,18 +21,33 @@ storiesOf("components|DragAndDropImage", module)
         console.log("received", image);
       }}
     />
+  ))
+  .add("disabled", () => (
+    <DragAndDropImage
+      onReceiveImage={image => {
+        console.log("received", image);
+      }}
+      disabled={true}
+    />
   ));
+
+
+const item:UploadedImage = {
+  key:'0',
+  name: "randomImage.png",
+  status: "uploaded",
+  imgbbLink:
+    "https://www.rover.com/blog/wp-content/uploads/2019/05/puppy-in-bowl.jpg",
+  imgbbThumbLink:null,
+  date: new Date(),
+}
 
 storiesOf("components|UploadedImageItem", module)
   .addDecorator(MuiThemeDecorator)
   .add("uploaded", () => (
     <UploadedImageItem
       item={{
-        name: "randomImage.png",
-        status: "uploaded",
-        imgbbLink:
-          "https://www.rover.com/blog/wp-content/uploads/2019/05/puppy-in-bowl.jpg",
-        date: new Date(),
+        ...item,
       }}
       onRemove={action("remove")}
     />
@@ -56,10 +55,9 @@ storiesOf("components|UploadedImageItem", module)
   .add("loading", () => (
     <UploadedImageItem
       item={{
-        name: "randomImage.png",
-        status: "loading",
+        ...item,
+        status:'loading',
         imgbbLink:null,
-        date: new Date(),
       }}
       onRemove={action("remove")}
     />
@@ -67,10 +65,9 @@ storiesOf("components|UploadedImageItem", module)
   .add("not_yet_uploaded", () => (
     <UploadedImageItem
       item={{
-        name: "randomImage.png",
+        ...item,
         status: "not_yet_uploaded",
         imgbbLink:null,
-        date: new Date(),
       }}
       onRemove={action("remove")}
     />
@@ -81,23 +78,25 @@ storiesOf("components|UploadedImageList", module)
   .add("normal", () => (
     <UploadedImageList
       items={[{
-        key:1,
+        key:'1',
         name: "randomImage.png",
         status: "not_yet_uploaded",
         imgbbLink:null,
+        imgbbThumbLink:null,
         date: new Date(),
       },{
-        key:2,
+        key:'0',
         name: "randomImage.png",
         status: "uploaded",
         imgbbLink:
           "https://www.rover.com/blog/wp-content/uploads/2019/05/puppy-in-bowl.jpg",
         date: new Date(),
       }, {
-        key:3,
+        key:'2',
         name: "randomImage.png",
         status: "loading",
         imgbbLink:null,
+        imgbbThumbLink:null,
         date: new Date(),
       }]}
       onRemove={action("remove")}
