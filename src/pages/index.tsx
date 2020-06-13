@@ -5,6 +5,8 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+import Img from 'gatsby-image';
+import {graphql, useStaticQuery} from 'gatsby'
 // prettier-ignore
 import {
   Box, Boxfc, Boxf, BoxPaper, Hidden,  Content,BoxProps,Chip,
@@ -77,6 +79,35 @@ function getInitialAppData(): AppData {
 const App = () => {
   const [data, updateData, dataRef] = useStateObj(getInitialAppData());
 
+  const gqdata = useStaticQuery(graphql`
+  {
+  presentationImage: file(relativePath: {eq: "presentation.png"}) {
+    childImageSharp {
+      fluid {
+				 base64
+        aspectRatio
+        sizes
+        src
+        srcSet
+
+      }
+    }
+  }
+  logoImage: file(relativePath: {eq: "logo.png"}) {
+    childImageSharp {
+      fluid {
+				 base64
+        aspectRatio
+        sizes
+        src
+        srcSet
+
+      }
+    }
+  }
+}
+  `)
+  print(gqdata);
   useEffect(() => {
     setTimeout(() => {
       localStorage.setItem("appData", JSON.stringify(data));
@@ -149,7 +180,7 @@ const App = () => {
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <Boxf align="center">
-                    <img src={`${PUBLIC_URL}/logo.png`} height="35px" />
+                    <Img fluid={gqdata.logoImage.childImageSharp.fluid} alt="logo" style={{width:'84px',height:'35px'}} />
                     <H3 fontStyle="italic">Uploader</H3>
                   </Boxf>
                 </a>
@@ -158,7 +189,7 @@ const App = () => {
                     <H1 mb={1}>paste an image and get</H1>
                     <H1>an Imgbb Url Link</H1>
                   </Boxfc>
-                  <img src={`${PUBLIC_URL}/presentation.png`} />
+                  <Img fluid={gqdata.presentationImage.childImageSharp.fluid} alt="presentation" style={{width:'200px'}} />
                 </Boxf>
               </Boxfc>
               <ApiKeyField mb={1} />
