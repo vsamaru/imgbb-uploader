@@ -14,7 +14,7 @@ export type AppData = {
 }
 
 export const defaultAppData:AppData = {
-    apiKey:'',
+    apiKey:'33612f7751537f4f27c5253f56edbf16',
     uploadedImages:[]
 }
 
