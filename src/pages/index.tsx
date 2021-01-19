@@ -132,7 +132,8 @@ const App = () => {
             name: name,
             date: new Date(),
             imgbbLink: null,
-            imgbbThumbLink: null
+            imgbbThumbLink: null,
+            preLink: null
           },
           ...dataRef.current.uploadedImages,
         ],
@@ -155,7 +156,8 @@ const App = () => {
                 ...e,
                 status: "uploaded",
                 imgbbLink: res.url,
-                imgbbThumbLink:res.thumbUrl
+                imgbbThumbLink:res.thumbUrl,
+          preLink: res.preUrl
               }
             : e
         ),
