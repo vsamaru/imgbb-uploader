@@ -9,5 +9,5 @@ export async function upload(apiKey: string, image: string, name: string): Promi
   })).json();
   if (!resp.success)
     throw `api upload fail: ${resp.status_code}: ${resp.error.message}`;
-  return { url: resp.data.url, filename:resp.data.image.filename, thumbUrl:resp.data.thumb.url };
+  return { url: resp.data.display_url, filename:resp.data.image.filename, thumbUrl:resp.data.thumb.url, preUrl:resp.data.url_viewer };
 }
