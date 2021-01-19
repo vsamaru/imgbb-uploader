@@ -5,6 +5,7 @@ export type UploadedImage = {
     date:Date;
     imgbbLink:string|null;
     imgbbThumbLink:string|null;
+  preUrl:string|null;
 }
 
 export type AppData = {
