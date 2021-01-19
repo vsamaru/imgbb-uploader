@@ -70,6 +70,7 @@ export const UploadedImageItem = ({
                       size="large"
                       startIcon={<FileCopyIcon />}
                       onClick={() => {
+                        console.log(item.preUrl);
                         navigator.clipboard.writeText(item.imgbbLink as string);
                         setSnackbarOpen(true);
                       }}
